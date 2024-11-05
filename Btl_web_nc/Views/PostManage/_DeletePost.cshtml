@@ -1,0 +1,27 @@
+@model PostNotifyViewModel
+
+<div class="modal fade" id="DeleteModal-@Model.Post.postId" tabindex="-1" role="dialog"
+    aria-labelledby="DeleteModalLabel-@Model.Post.postId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="DeleteModalLabel-@Model.Post.postId">Xác nhận xóa bài đăng</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="deletePostForm-@Model.Post.postId" action="@Url.Action("DeleteAdmin", "PostManage")" method="post">
+                    <input type="hidden" name="postId" value="@Model.Post.postId" />
+                    <div class="form-group">
+                        <label for="content">Nội dung thông báo</label>
+                        <textarea name="content" id="content" class="form-control" required></textarea>
+                        <span class="text-danger"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Xác nhận</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

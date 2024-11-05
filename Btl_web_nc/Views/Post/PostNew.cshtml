@@ -1,0 +1,50 @@
+﻿@model PostViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h2>Đăng bài</h2>
+<form asp-action="PostNew" asp-controller="Post" method="post">
+    <h3>Thông tin cơ bản</h3>
+    <div class="form-group">
+        <label>Loại</label>
+        <select class="custom-select custom-select-lg mb-3" asp-for="Type" id="Type">
+            <option value="RENT" selected>Cho thuê</option>
+            <option value="SELL">Bán</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="Address">Địa chỉ</label>
+        <input asp-for="Address" id="Address" type="text" class="form-control" placeholder="Nhập địa chỉ">
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+    <h3>Thông tin bài viết</h3>
+    <div class="form-group">
+        <label asp-for="Title">Tiêu đề</label>
+        <input asp-for="Title" id="Title" type="text" class="form-control" placeholder="VD: Bán nhà riêng 50m2 chính chủ tại Cầu giấy">
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="">Mô tả</label>
+        <textarea type="text" class="form-control" asp-for="Description" id="Description" rows="4" placeholder="Nhập mô tả chung về bất động sản của bạn. Ví dụ: khu nhà có vị trí thuận lợi, gần công viên, trường học,...."></textarea>
+
+    </div>
+    <h3>Thông tin nhà thuê</h3>
+    <div class="form-group">
+        <label asp-for="Area">Diện tích</label>
+        <input asp-for="Area" id="Area" type="number" class="form-control" placeholder="VD:20">
+        <span asp-validation-for="Area" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Price">Mức giá</label>
+        <input asp-for="Price" id="Price" type="number" class="form-control" placeholder="VD:200.000VND">
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ImageUrls">Hình ảnh</label>
+        <textarea asp-for="ImageUrls" id="ImageUrls" type="text" class="form-control" rows="4"></textarea>
+        <span asp-validation-for="ImageUrls" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Đăng tin</button>
+</form>

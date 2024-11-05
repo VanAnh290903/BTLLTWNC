@@ -1,0 +1,59 @@
+@model PostNotifyViewModel
+
+<div class="modal fade" id="updateStatusModal-@Model.Post.postId" tabindex="-1" role="dialog"
+    aria-labelledby="updateStatusModalLabel-@Model.Post.postId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateStatusModalLabel-@Model.Post.postId">Cập nhật trạng thái</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="updateStatusForm-@Model.Post.postId" action="@Url.Action("ChangeStatus", "PostManage")"
+                    method="post">
+                    <input type="hidden" name="postId" value="@Model.Post.postId" />
+                    <div class="form-group">
+                        <label for="status">Trạng thái</label>
+                        <select name="status" class="form-control form-control-sm"
+                            style="width: auto; display: inline;">
+                            @if (Model.Post.status == "Pending")
+                            {
+                                <option value="Pending" selected>Đang chờ</option>
+                                <option value="Approved">Duyệt</option>
+                                <option value="Rejected">Từ chối</option>
+                            }
+                            else if (Model.Post.status == "Approved")
+                            {
+                                <option value="Pending">Đang chờ</option>
+                                <option value="Approved" selected>Duyệt</option>
+                                <option value="Rejected">Từ chối</option>
+                            }
+                            else if (Model.Post.status == "Rejected")
+                            {
+                                <option value="Pending">Đang chờ</option>
+                                <option value="Approved">Duyệt</option>
+                                <option value="Rejected" selected>Từ chối</option>
+                            }
+                            else
+                            {
+                                <option value="Pending">Đang chờ</option>
+                                <option value="Approved">Duyệt</option>
+                                <option value="Rejected">Từ chối</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="content">Nội dung thông báo</label>
+                        <textarea asp-for="@Model.Notify.content" name="content" id="content" class="form-control"
+                            required></textarea>
+                        <span asp-validation-for="@Model.Notify.content" class="text-danger"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Xác nhận</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

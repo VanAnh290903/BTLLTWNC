@@ -1,0 +1,23 @@
+[33mcommit f859d26569d09b71d6272566ff4b79ebdc31f196[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/new-login[m[33m, [m[1;31morigin/refactor-branch[m[33m, [m[1;31morigin/feature/new-login[m[33m, [m[1;32mrefactor-branch[m[33m)[m
+Author: trung-hoang-1610 <161002trung@gmail.com>
+Date:   Tue Jul 23 12:29:31 2024 +0700
+
+    Fix warning codes and conventions
+
+[33mcommit 7b763736d78ccc57eb2d3057666a90d171c98122[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m
+Author: tuanphampp9 <122070890+tuanphampp9@users.noreply.github.com>
+Date:   Tue Jul 23 01:27:30 2024 +0700
+
+    Update README.md
+
+[33mcommit 689508c0bae678dc9574ba44e7c6ac5f55d453e7[m
+Author: tuanphampp9 <tuanphampp9@gmail.com>
+Date:   Tue Jul 23 01:22:50 2024 +0700
+
+    Add project files.
+
+[33mcommit d3d5b2c0170a5e64a92a2ca18557707c2e5036d9[m
+Author: tuanphampp9 <tuanphampp9@gmail.com>
+Date:   Tue Jul 23 01:22:47 2024 +0700
+
+    Add .gitattributes, .gitignore, and README.md.

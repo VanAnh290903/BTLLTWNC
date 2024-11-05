@@ -1,0 +1,95 @@
+﻿@import url('https://fonts.googleapis.com/css?family=Numans');
+
+html, body {
+    background-image: url('');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 65%;
+    font-family: 'Numans', sans-serif;
+}
+
+.container {
+    height: 700px;
+    align-content: center;
+}
+
+.card {
+    height: 550px;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 400px;
+    background-color: rgba(0,0,0,0) !important;
+}
+
+.social_icon span {
+    font-size: 60px;
+    margin-left: 10px;
+}
+
+    .social_icon span:hover {
+        color: white;
+        cursor: pointer;
+    }
+
+/* .card-header h3{
+
+} */
+
+.social_icon {
+    position: absolute;
+    right: 20px;
+    top: -45px;
+}
+
+.input-group-prepend span {
+    width: 50px;
+    background-color: #fefefe;
+    color: black;
+    border: 0 !important;
+}
+
+input:focus {
+    outline: 0 0 0 0 !important;
+    box-shadow: 0 0 0 0 !important;
+}
+
+
+.sign_btn {
+    color: black;
+    background-color: none;
+    width: 100%; /* Để nút button chiếm toàn bộ chiều rộng của phần tử cha */
+    padding: 10px 20px; /* Điều chỉnh khoảng cách nội dung bên trong nút */
+    border: solid; /* Xóa viền */
+    border-radius: 20px; /* Độ cong của viền */
+    cursor: pointer; /* Con trỏ khi rê chuột vào nút */
+    font-size: 16px; /* Kích cỡ chữ */
+    transition: background-color 0.3s; /* Hiệu ứng chuyển đổi màu nền */
+    margin-top: 20px;
+}
+
+    .sign_btn:hover {
+        color: black;
+        background-color: white;
+    }
+/* 
+.links{
+
+} */
+
+.links a {
+}
+
+.form-control {
+    border: 1px solid black;
+    border-radius: 20px;
+}
+
+.input-group-prepend .input-group-text {
+    width: 2.5rem; /* Điều chỉnh kích thước chiều rộng cho phù hợp */
+    text-align: center; /* Canh giữa nội dung trong biểu tượng */
+}
+
+.fas {
+    position: absolute;
+    padding: 10px;
+}

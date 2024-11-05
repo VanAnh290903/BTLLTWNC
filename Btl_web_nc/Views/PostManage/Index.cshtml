@@ -1,0 +1,259 @@
+@model List<Post>
+@{
+    var totalPosts = Model.Count;
+    var isAdmin = User.IsInRole("Admin");
+
+}
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- Slick Carousel JS -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<div style="height: 50px;">
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div id="alert-success" class="alert alert-success" role="alert">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+    else if (TempData["ErrorMessage"] != null)
+    {
+        <div id="alert-error" class="alert alert-danger" role="alert">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+</div>
+
+<h1>Danh sách bài đăng</h1>
+<p><strong>Tổng số bài đăng:</strong> @totalPosts</p>
+
+<div class="row">
+    @foreach (var post in Model)
+    {
+        <div class="col-lg-12 mb-4">
+            <div class="card card-custom">
+                <div class="d-flex">
+                    <!-- Image Section -->
+                    <div class="carousel-container" style="flex: 1;">
+                        <div id="carousel-@post.postId" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                @if (@post.imageUrls != null && @post.imageUrls.Any())
+                                {
+                                    var imageUrls = @post.imageUrls.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+
+                                    for (int i = 0; i < imageUrls.Length; i++)
+                                    {
+                                        var isActive = i == 0 ? "active" : "";
+                                        <div class="carousel-item @isActive">
+                                            <img src="@imageUrls[i].Trim()" class="d-block w-100" alt="...">
+                                        </div>
+                                    }
+                                }
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carousel-@post.postId"
+                                data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carousel-@post.postId"
+                                data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Details Section -->
+                    <div class="card-body" style="flex: 2; padding-left: 20px;">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="card-title">Mã bài đăng: @post.postId</h5>
+                            <div>
+                                <a href="@Url.Action("PostDetail", "Post",new { postId = post.postId })"
+                                    class="btn btn-primary btn-sm" target="_blank">Chi tiết</a>
+                                @if(!isAdmin){
+                                    <a href="@Url.Action("Edit", "PostManage", new {id = post.postId})"
+                                    class="btn btn-secondary btn-sm">Sửa</a>
+                                }
+                                
+                            @if(isAdmin){
+                                @* <form action="@Url.Action("DeleteAdmin", new { id = post.postId })" method="post"
+                                    style="display:inline;">
+                                    <input type="hidden" name="_method" value="POST" />
+                                    
+                                         <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#DeleteModal-@post.postId">
+                                            <i class="fas fa-trash-alt"></i> <!-- Biểu tượng thùng rác -->
+                                        </button>
+                                </form> *@
+                            }else{
+                                <form action="@Url.Action("Delete", new { id = post.postId })" method="post"
+                                    style="display:inline;">
+                                    <input type="hidden" name="_method" value="POST" />
+                                         <button type="submit" class="btn btn-danger btn-sm"
+                                        onclick="return confirmDelete();">Xóa</button>
+                                </form>
+                            }
+                            </div>
+                        </div>
+                        <h5 class="card-title">@post.title</h5>
+                        <!--<p class="card-text">@post.description</p>-->
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Địa chỉ: @post.address </li>
+                            <li class="list-group-item" style="color: #16c784; font-weight: bold;">Giá: @post.price
+                                vnđ/Tháng
+                                <span class="square-meter">
+                                    Diện tích: @post.area m<sup>2</sup>
+                                </span>
+                            </li>
+                            <li class="list-group-item">Trạng thái:
+                                @if (isAdmin)
+                                {
+                                    <span class="@(post.status == "Approved" ? "status-approved" : post.status == "Pending" ? "status-pending" : post.status == "Rejected" ? "status-rejected" : "status-unknown")">@post.status</span>
+                                    <button type="button" class="btn btn-warning btn-sm ml-2" data-toggle="modal" data-target="#updateStatusModal-@post.postId">
+                                        <i class="fas fa-pencil-alt"></i> <!-- Biểu tượng bút chì -->
+                                    </button>
+                                }
+                                else
+                                {
+                                    <span class="@(post.status == "Approved" ? "status-approved" : 
+                                                    post.status == "Pending" ? "status-pending" : 
+                                                    post.status == "Rejected" ? "status-rejected" : "status-unknown")">
+                                        @post.status
+                                    </span>
+                                }
+                            </li>
+                            <li class="list-group-item">Ngày tạo: @post.createdDate</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <partial name="_ChangeStatusModal" model="new PostNotifyViewModel { Post = post, Notify = new Notify() }" />
+        <partial name="_DeletePost" model="new PostNotifyViewModel { Post = post, Notify = new Notify() }" />
+
+    }
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.carousel').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            dots: true,
+            arrows: true,
+            infinite: true,
+            adaptiveHeight: true
+        });
+    });
+
+    function confirmDelete() {
+        return confirm("Bạn có chắc chắn muốn xóa bài đăng này?");
+    }
+</script>
+
+<style>
+    .card-custom {
+        background-color: #f3f4f6;
+        /* Màu nền xám nhạt */
+        border: 1px solid #e0e0e0;
+        /* Đường viền xám nhạt */
+    }
+
+    .list-group-item {
+        background-color: #f3f4f6;
+    }
+
+    .card-body {
+        padding: 20px;
+        /* Thay đổi padding nếu cần */
+    }
+
+    .carousel-container {
+        padding: 20px;
+        width: 300px;
+        height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .carousel-item {
+        width: 100%;
+        height: auto;
+    }
+
+    .carousel-item img {
+        max-width: inherit;
+        max-height: inherit;
+        height: inherit;
+        width: inherit;
+        object-fit: cover;
+    }
+
+    .square-meter {
+        display: inline;
+        margin-left: 30px;
+        color: black;
+    }
+
+    .alert {
+        opacity: 1;
+        transition: opacity 1s ease-out;
+    }
+
+    .alert.hide {
+        opacity: 0;
+    }
+
+
+    .status-approved {
+    color: rgb(18, 168, 18);
+     font-weight: bold;
+    
+}
+
+.status-pending {
+    color: rgb(161, 161, 18);
+     font-weight: bold;
+    
+}
+
+.status-rejected {
+    color: rgb(165, 13, 13);
+     font-weight: bold;
+    
+}
+</style>
+
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+        // Lấy thông báo từ HTML
+        var successAlert = document.getElementById('alert-success');
+        var errorAlert = document.getElementById('alert-error');
+
+        // Thời gian hiển thị thông báo (milisecond)
+        var displayDuration = 2000; // 5 giây
+
+        // Hàm để ẩn thông báo
+        function hideAlert(alertElement) {
+            if (alertElement) {
+                setTimeout(function () {
+                    alertElement.classList.add('hide');
+                    // Sau khi hiệu ứng mờ xong, ẩn hoàn toàn thông báo
+                    setTimeout(function () {
+                        alertElement.style.display = 'none';
+                    }, 1000); // Thời gian trễ để hoàn thành hiệu ứng mờ
+                }, displayDuration);
+            }
+        }
+
+        // Ẩn thông báo thành công và lỗi (nếu có)
+        hideAlert(successAlert);
+        hideAlert(errorAlert);
+    });
+</script>
