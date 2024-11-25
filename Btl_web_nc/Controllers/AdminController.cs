@@ -16,7 +16,8 @@ namespace Btl_web_nc.Controllers
         {
             _userRepository = userRepository;
         }
-        
+
+
         public IActionResult Admin()
         {
             var users = _userRepository.GetAllUsers();
@@ -59,7 +60,7 @@ namespace Btl_web_nc.Controllers
             {
                 Username = user.username,
                 PhoneNumber = user.phoneNumber
-          
+
             };
 
             return View(viewModel);
@@ -84,7 +85,7 @@ namespace Btl_web_nc.Controllers
 
                 user.username = model.Username;
                 user.phoneNumber = model.PhoneNumber;
-              
+
                 _userRepository.UpdateUser(user);
                 return RedirectToAction(nameof(Admin));
             }
