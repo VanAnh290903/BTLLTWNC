@@ -7,7 +7,7 @@ using Btl_web_nc.RepositoryInterfaces;
 
 namespace Btl_web_nc.Controllers
 {
-    
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -15,7 +15,7 @@ namespace Btl_web_nc.Controllers
         private readonly IUserRepositories userRepositories;
         private readonly ITypeRepositories typeRepositories;
 
-        public HomeController(ILogger<HomeController> logger, IPostRepositories postRepositories, IUserRepositories userRepositories , ITypeRepositories typeRepositories)
+        public HomeController(ILogger<HomeController> logger, IPostRepositories postRepositories, IUserRepositories userRepositories, ITypeRepositories typeRepositories)
         {
             _logger = logger;
             this.postRepositories = postRepositories;
@@ -23,7 +23,7 @@ namespace Btl_web_nc.Controllers
             this.typeRepositories = typeRepositories;
         }
         [HttpGet]
-        public IActionResult Index(string typeName="All", string title="")
+        public IActionResult Index(string typeName = "All", string title = "")
         {
             List<Post> posts = postRepositories.GetAllPosts().Select(p => new Post
             {
@@ -42,15 +42,37 @@ namespace Btl_web_nc.Controllers
                 User = userRepositories.GetUserById(p.userId),
                 Type = typeRepositories.GetTypeById(p.typeId)
             }).ToList().Where(p => p.status == "Approved").ToList();
-            if(typeName != "All")
+            if (typeName != "All")
             {
                 posts = posts.Where(p => p.Type.typeName == typeName).ToList();
             }
-            if(title != "")
+            if (title != "")
             {
                 posts = posts.Where(p => p.title.Contains(title)).ToList();
             }
             return View("index", posts);
+        }
+
+        public IActionResult Cau1()
+        {
+            List<Post> posts = postRepositories.GetAllPosts().Select(p => new Post
+            {
+                postId = p.postId,
+                userId = p.userId,
+                typeId = p.typeId,
+                title = p.title,
+                description = p.description,
+                address = p.address,
+                price = p.price,
+                status = p.status,
+                imageUrls = p.imageUrls,
+                createdDate = p.createdDate,
+                updatedDate = p.updatedDate,
+                area = p.area,
+                User = userRepositories.GetUserById(p.userId),
+                Type = typeRepositories.GetTypeById(p.typeId)
+            }).ToList().Where(p => p.status == "Approved").ToList();
+            return View(posts);
         }
 
         public IActionResult Privacy()

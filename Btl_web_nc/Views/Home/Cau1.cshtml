@@ -1,0 +1,50 @@
+@{
+    ViewData["Title"] = "Câu 1";
+}
+@model List<Post>
+
+    <style>
+        .cau1 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+        @@media screen and (max-width: 768px) {
+            .cau1 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @@media screen and (max-width: 480px) {
+            .cau1 {
+                grid-template-columns: repeat(1, 1fr);
+            }
+        }
+
+    </style>
+    <div class="cau1">
+@foreach (var post in Model)
+{
+
+        <div class="card" >
+            @if (post.imageUrls.Split(";").Length > 0)
+            {
+                <img src="@post.imageUrls.Split(";")[0]" class="card-img-top object-fit-cover" alt="@post.title" height="230" />
+            }
+            <a class="mt-3 nav-link p-0" asp-action="PostDetail" asp-controller="Post" asp-route-postId="@post.postId">Tiêu đề:
+                @post.title</a>
+            <h5>Loại: @post.Type.typeName</h5>
+            <div class="d-flex align-items-center gap-3">
+                <p>Giá: @post.price</p>
+                <p>Diện tích: @post.area</p>
+                <p>Địa chỉ: @post.address</p>
+            </div>
+            <p>Mô tả: @post.description</p>
+            <div class="d-flex justify-content-between align-items-center">
+                <p>Tên người đăng: @post.User.username</p>
+                <p>Số điện thoại: @post.User.phoneNumber</p>
+            </div>
+        </div>
+   
+    
+}
+ </div>

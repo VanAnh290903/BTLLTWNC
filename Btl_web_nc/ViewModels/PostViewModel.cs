@@ -18,4 +18,10 @@
 
         [Required(ErrorMessage = "Hình ảnh là bắt buộc")]
         public string? ImageUrls { get; set; }
+
+        // VerifyKey, yêu cầu phải có 10 kí tự và bắt đầu bằng chữ số, và không được để trống
+        [RegularExpression(@"^[0-9]{1}[a-zA-Z0-9]{9}$", ErrorMessage = "VerifyKey phải bắt đầu bằng số và có 10 kí tự")]
+        [Required(ErrorMessage = "VerifyKey không được để trống")]
+        public string? VerifyKey { get; set; }
+
     }

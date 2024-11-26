@@ -42,6 +42,13 @@ namespace Btl_web_nc.Models
         {
             return _dbContext.Posts.ToList<Post>();
         }
+        public List<Post> GetRecentPendingPosts()
+        {
+            return _dbContext.Posts
+            .Where(p => p.status == "pending")
+            .OrderByDescending(p => p.createdDate)
+            .ToList();
+        }
 
         public async Task<Post> GetPostByIdAsync(int postID)
         {

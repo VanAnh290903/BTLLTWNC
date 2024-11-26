@@ -46,5 +46,10 @@
         <textarea asp-for="ImageUrls" id="ImageUrls" type="text" class="form-control" rows="4"></textarea>
         <span asp-validation-for="ImageUrls" class="text-danger"></span>
     </div>
+    <div class="form-group">
+        <label asp-for="VerifyKey">VerifyKey</label>
+        <input asp-for="VerifyKey" id="VerifyKey" type="text" class="form-control" placeholder="Nhập mã xác nhận">
+        <span asp-validation-for="VerifyKey" class="text-danger"></span>
+    </div>
     <button type="submit" class="btn btn-primary">Đăng tin</button>
 </form>
