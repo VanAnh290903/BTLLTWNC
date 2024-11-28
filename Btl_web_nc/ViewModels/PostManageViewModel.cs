@@ -51,6 +51,6 @@ public class PostManageViewModel
         TypeId = post.typeId;
         Area  = post.area;
         CreateDate = post.createdDate;
-        // VerifyKey = post.verifyKey;
+        VerifyKey = post.VerifyKey;
     }
 }

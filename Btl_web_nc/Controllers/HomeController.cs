@@ -67,6 +67,7 @@ namespace Btl_web_nc.Controllers
                 price = p.price,
                 status = p.status,
                 imageUrls = p.imageUrls,
+                VerifyKey = p.VerifyKey,
                 createdDate = p.createdDate,
                 updatedDate = p.updatedDate,
                 area = p.area,
