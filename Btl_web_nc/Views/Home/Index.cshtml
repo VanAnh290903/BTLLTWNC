@@ -20,11 +20,12 @@
 @foreach (var post in Model)
 {
     <div class="card py-3 px-2 mt-3">
-        @if (post.imageUrls.Split(";").Length>0)
+    @if (post.imageUrls.Split(";").Length > 0)
         {
-            <img src="@post.imageUrls.Split(";")[0]" class="card-img-top object-fit-cover" alt="@post.title"  height="230"/>
+            <img src="@post.imageUrls.Split(";")[0]" class="card-img-top object-fit-cover" alt="@post.title" height="230" />
         }
-        <a class="mt-3 nav-link p-0" asp-action="PostDetail" asp-controller="Post" asp-route-postId="@post.postId">Tiêu đề: @post.title</a>
+        <a class="mt-3 nav-link p-0" asp-action="PostDetail" asp-controller="Post" asp-route-postId="@post.postId">Tiêu đề:
+            @post.title</a>
         <h5>Loại: @post.Type.typeName</h5>
         <div class="d-flex align-items-center gap-3">
             <p>Giá: @post.price</p>
@@ -36,14 +37,15 @@
             <p>Tên người đăng: @post.User.username</p>
             <p>Số điện thoại: @post.User.phoneNumber</p>
         </div>
+        <p>VerifyKey: @post.VerifyKey</p>
     </div>
 }
 
 <script>
-     document.getElementById("searchButton").addEventListener("click", function() {
-       const title = document.getElementById("searchInput").value;
-       const baseUrl = "@Url.Action("Index", "Home")";
-       const newUrl = baseUrl + "?title=" + title;
-       window.location.href = newUrl;
-     });
+    document.getElementById("searchButton").addEventListener("click", function () {
+        const title = document.getElementById("searchInput").value;
+        const baseUrl = "@Url.Action("Index", "Home")";
+        const newUrl = baseUrl + "?title=" + title;
+        window.location.href = newUrl;
+    });
 </script>

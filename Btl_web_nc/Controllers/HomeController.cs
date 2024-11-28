@@ -38,6 +38,7 @@ namespace Btl_web_nc.Controllers
                 imageUrls = p.imageUrls,
                 createdDate = p.createdDate,
                 updatedDate = p.updatedDate,
+                VerifyKey = p.VerifyKey,
                 area = p.area,
                 User = userRepositories.GetUserById(p.userId),
                 Type = typeRepositories.GetTypeById(p.typeId)

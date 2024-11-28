@@ -31,6 +31,9 @@ public class PostManageViewModel
 
     public DateTime CreateDate{ get; set; } 
 
+    [RegularExpression(@"^.{5,}[0-9]$", ErrorMessage = "VerifyKey phải có ít nhất 6 ký tự và kết thúc bằng một chữ số")]
+    public string? VerifyKey { get; set; }
+
     public PostManageViewModel()
     {
         
@@ -48,5 +51,6 @@ public class PostManageViewModel
         TypeId = post.typeId;
         Area  = post.area;
         CreateDate = post.createdDate;
+        // VerifyKey = post.verifyKey;
     }
 }

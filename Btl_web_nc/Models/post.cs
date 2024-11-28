@@ -27,6 +27,8 @@ namespace Btl_web_nc.Models
         public ICollection<Favourite>? Favourites { get; set; }
         public ICollection<Notify>? Notifies { get; set; }
 
+        public string? VerifyKey { get; set; }
+
 
     }
 }
