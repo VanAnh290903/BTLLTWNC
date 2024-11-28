@@ -79,6 +79,7 @@ namespace Btl_web_nc.Models
                     existingPost.price = post.Price;
                     existingPost.status = post.Status;
                     existingPost.imageUrls = post.ImageUrls;
+                    existingPost.VerifyKey = post.VerifyKey;
                     existingPost.typeId = post.TypeId;
                     existingPost.area = post.Area??0;
                     existingPost.updatedDate = DateTime.Now;
