@@ -55,7 +55,8 @@ namespace Btl_web_nc.Controllers
                     area = model.Area ?? 0,
                     createdDate = DateTime.Now,
                     updatedDate = DateTime.Now,
-                    imageUrls = model.ImageUrls
+                    imageUrls = model.ImageUrls,
+                    VerifyKey = model.VerifyKey
                 };
                 postRepositories.AddNewPost(post);
                 return RedirectToAction("Index", "PostManage");
